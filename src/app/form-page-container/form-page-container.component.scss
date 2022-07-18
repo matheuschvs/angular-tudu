@@ -1,0 +1,20 @@
+.custom-container {
+  margin-top: 10vh;
+  padding: 2rem;
+  border-radius: 50px 50px 0 0;
+  background: var(--gray-100);
+  min-height: 90vh;
+
+  >h1 {
+    margin-bottom: 3rem;
+  }
+}
+
+.trace {
+  display: block;
+  width: 1.5rem;
+  height: 0.13rem;
+  margin: 0 auto 3rem;
+  border-radius: 5px;
+  background: var(--blue-800);
+}

@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --blue-100: #6AA5FF;
+  --blue-800: #1A55B4;
+  --red-100: #FE746F;
+  --yellow-100: #FEC857;
+  --gray-100: #EBF4FD;
+  --gray-200: #DEE9F0;
+  --gray-800: #83949A;
+  --gray-900: #41464C;
+}
+
+body {
+  color: var(--gray-800);
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+input,
+textarea,
+button {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--blue-800);
+}
