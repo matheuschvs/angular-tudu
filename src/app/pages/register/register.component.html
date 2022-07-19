@@ -1,5 +1,5 @@
 <tudu-form-page-container [title]="title">
-  <form #form="ngForm" novalidate>
+  <form #form="ngForm" novalidate (ngSubmit)="onSubmit(form)">
     <tudu-input id="name" label="Nome">
       <input type="text" required class="form-control" ngModel name="name" id="name" placeholder="Digite seu nome">
     </tudu-input>
@@ -17,16 +17,15 @@
         class="form-control" id="passwordConfirmation" placeholder="Confirme sua senha" (focus)="confSetFocus(true)"
         (focusout)="confSetFocus(false)">
     </tudu-password-input>
-
+    <div class="d-grid gap-4 mt-5">
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Cadastrar</button>
+      <button class="btn btn-light d-flex justify-content-center align-items-center" type="button">
+        <fa-icon [icon]="googleIcon"
+          [styles]="{'width': '30px', 'height': '30px', 'color': 'var(--blue-100)', 'margin-right': '0.5rem'}">
+        </fa-icon>
+        Cadastrar com o Google
+      </button>
+    </div>
   </form>
-  <div class="d-grid gap-4 mt-5">
-    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Cadastrar</button>
-    <button class="btn btn-light d-flex justify-content-center align-items-center" type="button">
-      <fa-icon [icon]="googleIcon"
-        [styles]="{'width': '30px', 'height': '30px', 'color': 'var(--blue-100)', 'margin-right': '0.5rem'}">
-      </fa-icon>
-      Cadastrar com o Google
-    </button>
-  </div>
   <a class="mt-5 d-block text-center" [routerLink]="['/']">Já tenho conta</a>
 </tudu-form-page-container>

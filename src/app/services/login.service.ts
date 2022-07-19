@@ -3,32 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from "rxjs";
 
 import { TUDU_API } from '../app.api';
+import { User } from "../models/user.model";
 
 interface IResponse {
   user: User;
   token: string;
-}
-
-type User = {
-  _id: ObjectId;
-  name: string;
-  email: string;
-  password_digest: string;
-  created_at: Date;
-  updated_at: Date;
-  categories?: Category[];
-}
-
-type Category = {
-  _id: ObjectId;
-  title: string;
-  color: string;
-  created_at: Date;
-  updated_at: Date;
-}
-
-type ObjectId = {
-  $oid: string;
 }
 
 @Injectable()
