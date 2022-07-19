@@ -31,6 +31,10 @@ button {
   cursor: pointer;
 }
 
+:disabled {
+  cursor: not-allowed;
+}
+
 h1,
 h2,
 h3,

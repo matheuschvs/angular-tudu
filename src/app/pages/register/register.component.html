@@ -1,13 +1,26 @@
 <tudu-form-page-container [title]="title">
   <form #form="ngForm" novalidate>
-    <tudu-input id="name" type="text" label="Nome" placeholder="Digite seu nome"></tudu-input>
-    <tudu-input id="email" type="email" label="E-mail" placeholder="Digite seu email"></tudu-input>
-    <tudu-password-input id="password" label="Senha" placeholder="Digite sua senha"></tudu-password-input>
-    <tudu-password-input id="passwordConfirmation" label="Repetir senha" placeholder="Confirme sua senha">
+    <tudu-input id="name" label="Nome">
+      <input type="text" required class="form-control" ngModel name="name" id="name" placeholder="Digite seu nome">
+    </tudu-input>
+    <tudu-input id="email" label="E-mail">
+      <input type="email" required class="form-control" ngModel name="email" id="email" placeholder="Digite seu email">
+    </tudu-input>
+    <tudu-password-input id="password" label="Senha" [hidden]="passHidden" [hasFocus]="passHasFocus"
+      [togglePasswordVisibility]="passTogglePasswordVisibility" [setFocus]="passSetFocus">
+      <input ngModel required name="password" type="{{passHidden ? 'password' : 'text'}}" class="form-control"
+        id="password" placeholder="Digite sua senha" (focus)="passSetFocus(true)" (focusout)="passSetFocus(false)">
     </tudu-password-input>
+    <tudu-password-input id="passwordConfirmation" label="Repetir senha" [hidden]="confHidden" [hasFocus]="confHasFocus"
+      [togglePasswordVisibility]="confTogglePasswordVisibility" [setFocus]="confSetFocus">
+      <input ngModel required name="passwordConfirmation" type="{{confHidden ? 'password' : 'text'}}"
+        class="form-control" id="passwordConfirmation" placeholder="Confirme sua senha" (focus)="confSetFocus(true)"
+        (focusout)="confSetFocus(false)">
+    </tudu-password-input>
+
   </form>
   <div class="d-grid gap-4 mt-5">
-    <button class="btn btn-primary" type="submit">Entrar</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Cadastrar</button>
     <button class="btn btn-light d-flex justify-content-center align-items-center" type="button">
       <fa-icon [icon]="googleIcon"
         [styles]="{'width': '30px', 'height': '30px', 'color': 'var(--blue-100)', 'margin-right': '0.5rem'}">

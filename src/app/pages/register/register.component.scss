@@ -5,6 +5,31 @@ tudu-password-input+tudu-password-input {
   margin-top: 1rem;
 }
 
+input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--gray-200);
+  border-radius: 0;
+  outline: none;
+  color: var(--gray-900);
+  padding: 0.5rem 0.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: var(--gray-800);
+    box-shadow: none;
+    background: transparent;
+  }
+}
+
+input#password,
+input#passwordConfirmation {
+  border-bottom: none;
+}
+
 .btn-primary {
   background: var(--blue-800);
 }

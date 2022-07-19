@@ -9,6 +9,14 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 export class RegisterComponent implements OnInit {
   title = 'Cadastrar'
   googleIcon = faGoogle;
+  passHidden = true;
+  passHasFocus = false;
+  passTogglePasswordVisibility = () => this.passHidden = !this.passHidden;
+  passSetFocus = (focus: any) => this.passHasFocus = focus;
+  confHidden = true;
+  confHasFocus = false;
+  confTogglePasswordVisibility = () => this.confHidden = !this.confHidden;
+  confSetFocus = (focus: any) => this.confHasFocus = focus;
 
   constructor() {}
 

@@ -10,21 +10,15 @@ export class PasswordInputComponent implements OnInit {
   @Input() id: string;
   @Input() label: string;
   @Input() placeholder: string;
-  hidden = true;
+  @Input() hidden: boolean = true;
+  @Input() hasFocus: boolean = false;
+  @Input() togglePasswordVisibility: () => void;
+  @Input() setFocus: (focus: any) => void;
   eyeIcon = faEye;
   eyeSlashIcon = faEyeSlash;
-  hasFocus = false;
 
   constructor() {}
 
   ngOnInit(): void {
-  }
-
-  togglePasswordVisibility() {
-    this.hidden = !this.hidden;
-  }
-
-  setFocus(focus: boolean) {
-    this.hasFocus = focus;
   }
 }
