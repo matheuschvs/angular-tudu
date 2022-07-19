@@ -1,3 +1,19 @@
 <tudu-form-page-container [title]="title">
-  <a [routerLink]="['/']">Já tenho conta</a>
+  <form #form="ngForm" novalidate>
+    <tudu-input id="name" type="text" label="Nome" placeholder="Digite seu nome"></tudu-input>
+    <tudu-input id="email" type="email" label="E-mail" placeholder="Digite seu email"></tudu-input>
+    <tudu-password-input id="password" label="Senha" placeholder="Digite sua senha"></tudu-password-input>
+    <tudu-password-input id="passwordConfirmation" label="Repetir senha" placeholder="Confirme sua senha">
+    </tudu-password-input>
+  </form>
+  <div class="d-grid gap-4 mt-5">
+    <button class="btn btn-primary" type="submit">Entrar</button>
+    <button class="btn btn-light d-flex justify-content-center align-items-center" type="button">
+      <fa-icon [icon]="googleIcon"
+        [styles]="{'width': '30px', 'height': '30px', 'color': 'var(--blue-100)', 'margin-right': '0.5rem'}">
+      </fa-icon>
+      Cadastrar com o Google
+    </button>
+  </div>
+  <a class="mt-5 d-block text-center" [routerLink]="['/']">Já tenho conta</a>
 </tudu-form-page-container>

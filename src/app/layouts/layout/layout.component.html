@@ -1,9 +1,27 @@
 <router-outlet></router-outlet>
 <nav class="navigation">
   <ul>
-    <li><a [routerLink]="['/home']"></a></li>
-    <li><a [routerLink]="['/planner']"></a></li>
-    <li><a [routerLink]="['/profile']"></a></li>
-    <li><a [routerLink]="['/todos/create']"></a></li>
+    <li>
+      <a [routerLink]="['/home']">
+        <fa-icon [icon]="houseIcon" [styles]="{'width': '22px', 'height': '22px', 'color': 'var(--blue-800)'}">
+        </fa-icon>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/planner']">
+        <fa-icon [icon]="calendarIcon" [styles]="{'width': '22px', 'height': '22px', 'color': 'var(--blue-800)'}">
+        </fa-icon>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/profile']">
+        <fa-icon [icon]="userIcon" [styles]="{'width': '22px', 'height': '22px', 'color': 'var(--blue-800)'}"></fa-icon>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/todos/create']">
+        <fa-icon [icon]="plusIcon" [styles]="{'width': '30px', 'height': '30px', 'color': '#FFF'}"></fa-icon>
+      </a>
+    </li>
   </ul>
 </nav>
