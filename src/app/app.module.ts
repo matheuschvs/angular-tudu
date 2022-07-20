@@ -15,6 +15,8 @@ import { InputComponent } from './components/input/input.component';
 import { PasswordInputComponent } from './components/password-input/password-input.component';
 import { LoginService } from './services/login.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularToastifyModule, ToastService } from 'angular-toastify';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     LayoutComponent,
     HomeComponent,
     InputComponent,
-    PasswordInputComponent
+    PasswordInputComponent,
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +36,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FontAwesomeModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularToastifyModule
   ],
-  providers: [LoginService],
+  providers: [LoginService, ToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,0 +1,5 @@
+<button (click)="toggleStatus()" [ngStyle]="{border: '2px solid black', borderColor: borderColor, background: bgColor}">
+  <fa-icon *ngIf="status === 'DONE'" [icon]="checkIcon"
+    [styles]="{'width': '24px', 'height': '24px', 'color': 'green', position: 'absolute', top: '-0.5rem', left: '0'}">
+  </fa-icon>
+</button>

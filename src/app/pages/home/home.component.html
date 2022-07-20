@@ -1,1 +1,54 @@
-<p>home works!</p>
+<div class="custom-container">
+  <h1>Tarefas</h1>
+  <section>
+    <h2>A FAZER</h2>
+    <ul class='start-height'>
+      <li *ngFor="let todo of filterTodos('WAITING', 3)" class='waiting-todo'
+        [ngStyle]="{background: shadeColor(todo.category.color, 10)}">
+        <tudu-checkbox (userClicked)="handleToggleStatus(todo._id.$oid, todo.status)" borderColor="#FFF"
+          bgColor="{{shadeColor(todo.category.color, 40)}}" status="todo.status">
+        </tudu-checkbox>
+        <div>
+          <a [routerLink]="['/todos/'+todo._id.$oid]">
+            <h3>{{todo.title}}</h3>
+          </a>
+          <p [ngStyle]="{color: shadeColor(todo.category.color, -50)}">{{todo.description}}</p>
+        </div>
+      </li>
+    </ul>
+    <a class="custom-link" [routerLink]="['/home']">Ver todos</a>
+  </section>
+  <section class='start-height'>
+    <h2>EM PROGRESSO</h2>
+    <ul class="in-progress">
+      <li *ngFor="let todo of addTodosPercent(filterTodos('WAITING'))" class="in-progress-todo"
+        [ngStyle]="{background: shadeColor(todo.category.color, 10)}">
+        <a [routerLink]="['/todos/'+todo._id.$oid]">
+          <h3>{{todo.title.split(' ')[0]}}</h3>
+        </a>
+        <p [ngStyle]="{color: shadeColor(todo.category.color, -50)}">{{todo.description}}</p>
+        <b [ngStyle]="{color: shadeColor(todo.category.color, -50)}">{{todo.percent}}</b>
+        <div class="progress-bar">
+          <div [ngStyle]="{background: shadeColor(todo.category.color, -50), width: todo.percent}"></div>
+        </div>
+      </li>
+    </ul>
+    <a class="custom-link" [routerLink]="['/home']">Ver todos</a>
+  </section>
+  <section class='start-height'>
+    <h2>CONCLUÍDO</h2>
+    <ul>
+      <li *ngFor="let todo of filterTodos('DONE')" class="completed-todo">
+        <tudu-checkbox (userClicked)="handleToggleStatus(todo._id.$oid, todo.status)" borderColor="var(--gray-800)"
+          bgColor="#FFF" [status]="todo.status">
+        </tudu-checkbox>
+        <div>
+          <a [routerLink]="['/todos/'+todo._id.$oid]">
+            <h3>{{todo.title.split(' ')[0]}}</h3>
+          </a>
+          <p [ngStyle]="{color: shadeColor('#EBF4FD', -50)}">{{todo.description}}</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>

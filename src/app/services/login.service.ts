@@ -12,8 +12,9 @@ interface IResponse {
 
 @Injectable()
 export class LoginService {
-  user: User;
-  token: string;
+  user: User = JSON.parse(localStorage.getItem('@tudu:user') || '{}');
+  token: string | null = localStorage.getItem('@tudu:token');
+
   isLoggedIn(): boolean {
     return !!this.user
   }
@@ -25,6 +26,8 @@ export class LoginService {
       email,
       password
     }).pipe(tap(result => {
+      localStorage.setItem('@tudu:token', result.token)
+      localStorage.setItem('@tudu:user', JSON.stringify(result.user))
       this.token = result.token;
       this.user = result.user
     }))

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { ToastService } from 'angular-toastify';
 
 import { LoginService } from 'src/app/services/login.service';
 
@@ -16,7 +18,11 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility = () => this.hidden = !this.hidden;
   setFocus = (focus: any) => this.hasFocus = focus;
 
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private _toastService: ToastService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
   }
@@ -26,6 +32,11 @@ export class LoginComponent implements OnInit {
 
     this.loginService
       .login(email, password)
-      .subscribe(data => console.log(data))
+      .subscribe({
+        error: () => this._toastService.error('Algo deu errado, tente novamente'),
+        next: () => {
+          this.router.navigate(['/home'])
+        }
+      })
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { ToastService } from 'angular-toastify';
 
 import { RegisterService } from 'src/app/services/register.service';
 
@@ -24,7 +25,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private registerService: RegisterService,
-    private router: Router
+    private router: Router,
+    private _toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -36,9 +38,13 @@ export class RegisterComponent implements OnInit {
     if (password === passwordConfirmation) {
       this.registerService
         .register(name, email, password)
-        .subscribe()
-
-      this.router.navigate(['/login'])
+        .subscribe({
+          error: () => this._toastService.error('Algo deu errado, tente novamente'),
+          next: () => {
+            this._toastService.success('Registrado com sucesso')
+            this.router.navigate(['/login'])
+          }
+        })
     }
   }
 }
