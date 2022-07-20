@@ -56,14 +56,15 @@ export class HomeComponent implements OnInit {
   }
 
   filterTodos(status: string, index: number = this.todos?.length || 0) {
-    console.log(index)
-    return this.todos?.filter((todo, i) => todo.status === status && i < index)
+    return this.todos
+      ?.filter(todo => todo.status === status)
+      .filter((t, i) => i < index)
   }
 
   addTodosPercent(todos: Todo[]): Todo[] {
     return todos?.map(todo => {
       const completedTasksNumber = todo.tasks?.filter(t => t.status === "DONE").length
-      const percentNumber = completedTasksNumber || 1 / (todo.tasks?.length || 1)
+      const percentNumber = (completedTasksNumber || 1) / (todo.tasks?.length || 1)
       const percentString = this.numberToPercent(percentNumber)
 
       todo.percent = percentString
