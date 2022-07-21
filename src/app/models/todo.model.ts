@@ -8,7 +8,7 @@ export type Todo = {
   _id: ObjectId;
   title: string;
   description: string;
-  deadline: Date;
+  deadline: string;
   status: string;
   percent?: string;
   category: Category;

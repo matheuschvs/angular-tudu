@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LayoutComponent } from './layouts/layout/layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TodoComponent } from './pages/todo/todo.component';
+import { PlannerComponent } from './pages/planner/planner.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'todos/:id', component: TodoComponent }
+      { path: 'todos/:id', component: TodoComponent },
+      { path: 'planner', component: PlannerComponent },
     ]
   },
 ];

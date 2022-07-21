@@ -23,6 +23,7 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { TodoComponent } from './pages/todo/todo.component';
 import { TodoService } from './services/todo.service';
 import { CustomDatePipe } from './utils/datePipe';
+import { PlannerComponent } from './pages/planner/planner.component';
 
 registerLocaleData(localePt);
 
@@ -38,7 +39,8 @@ registerLocaleData(localePt);
     PasswordInputComponent,
     CheckboxComponent,
     TodoComponent,
-    CustomDatePipe
+    CustomDatePipe,
+    PlannerComponent
   ],
   imports: [
     BrowserModule,

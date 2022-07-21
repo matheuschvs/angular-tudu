@@ -1,0 +1,21 @@
+<div class="custom-container">
+  <h1>Planner</h1>
+  <!--Calendar-->
+  <ul class="days">
+    <li *ngFor="let date of groupByDayKeys">
+      <div class="day">
+        <p>{{daysOfWeek[dayjs(date).day()]}}</p>
+        <b>{{dayjs(date).date()}}</b>
+      </div>
+      <ul>
+        <li class="todo" *ngFor="let todo of groupByDay[date]"
+          [ngStyle]="{background: shadeColor(todo?.category?.color || '#FF0000', 10)}">
+          <a [routerLink]=" ['/todos'+todo._id.$oid]">
+            <h3>{{todo.title}}</h3>
+          </a>
+          <p [ngStyle]="{color: shadeColor(todo?.category?.color || '#FF0000', -40)}">{{todo.description}}</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
