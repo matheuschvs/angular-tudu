@@ -2,33 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { ToastService } from 'angular-toastify';
 
 import { Todo } from 'src/app/models/todo.model';
-import { HomeService } from 'src/app/services/home.service';
 import { LoginService } from 'src/app/services/login.service';
+import { TodoService } from 'src/app/services/todo.service';
 import { shadeColor } from '../../utils/shadeColor'
 
 @Component({
   selector: 'tudu-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [HomeService]
+  providers: []
 })
 export class HomeComponent implements OnInit {
   todos: Todo[]
   shadeColor = shadeColor;
 
   constructor(
-    private homeService: HomeService,
+    private todoService: TodoService,
     private _toastService: ToastService,
     private loginService: LoginService
   ) {
-    this.updateTodos();
   }
 
   ngOnInit(): void {
+    this.updateTodos();
   }
 
   updateTodos() {
-    this.homeService
+    this.todoService
       .fetchTodos()
       .subscribe({
         error: () => this._toastService.error('Algo deu errado'),
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   handleToggleStatus(id: string, status: string): void {
-    this.homeService
+    this.todoService
       .toggleTodoStatus(id, status)
       .subscribe({
         error: () => this._toastService.error('Não foi possível alterar'),
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
   addTodosPercent(todos: Todo[]): Todo[] {
     return todos?.map(todo => {
       const completedTasksNumber = todo.tasks?.filter(t => t.status === "DONE").length
-      const percentNumber = (completedTasksNumber || 1) / (todo.tasks?.length || 1)
+      const percentNumber = (completedTasksNumber ?? 1) / (todo.tasks?.length || 1)
       const percentString = this.numberToPercent(percentNumber)
 
       todo.percent = percentString

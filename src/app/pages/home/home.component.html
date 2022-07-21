@@ -4,15 +4,15 @@
     <h2>A FAZER</h2>
     <ul class='start-height'>
       <li *ngFor="let todo of filterTodos('WAITING', 3)" class='waiting-todo'
-        [ngStyle]="{background: shadeColor(todo.category.color, 10)}">
+        [ngStyle]="{background: shadeColor(todo?.category?.color || '#FF0000', 10)}">
         <tudu-checkbox (userClicked)="handleToggleStatus(todo._id.$oid, todo.status)" borderColor="#FFF"
-          bgColor="{{shadeColor(todo.category.color, 40)}}" status="todo.status">
+          bgColor="{{shadeColor(todo?.category?.color || '#FF0000', 10)}}" status="todo.status">
         </tudu-checkbox>
         <div>
           <a [routerLink]="['/todos/'+todo._id.$oid]">
             <h3>{{todo.title}}</h3>
           </a>
-          <p [ngStyle]="{color: shadeColor(todo.category.color, -50)}">{{todo.description}}</p>
+          <p [ngStyle]="{color: shadeColor(todo?.category?.color || '#FF0000', -50)}">{{todo.description}}</p>
         </div>
       </li>
     </ul>
@@ -22,14 +22,14 @@
     <h2>EM PROGRESSO</h2>
     <ul class="in-progress">
       <li *ngFor="let todo of addTodosPercent(filterTodos('WAITING'))" class="in-progress-todo"
-        [ngStyle]="{background: shadeColor(todo.category.color, 10)}">
+        [ngStyle]="{background: shadeColor(todo?.category?.color || '#FF0000', 10)}">
         <a [routerLink]="['/todos/'+todo._id.$oid]">
           <h3>{{todo.title.split(' ')[0]}}</h3>
         </a>
-        <p [ngStyle]="{color: shadeColor(todo.category.color, -50)}">{{todo.description}}</p>
-        <b [ngStyle]="{color: shadeColor(todo.category.color, -50)}">{{todo.percent}}</b>
+        <p [ngStyle]="{color: shadeColor(todo?.category?.color || '#FF0000', -50)}">{{todo.description}}</p>
+        <b [ngStyle]="{color: shadeColor(todo?.category?.color || '#FF0000', -50)}">{{todo.percent}}</b>
         <div class="progress-bar">
-          <div [ngStyle]="{background: shadeColor(todo.category.color, -50), width: todo.percent}"></div>
+          <div [ngStyle]="{background: shadeColor(todo?.category?.color || '#FF0000', -50), width: todo.percent}"></div>
         </div>
       </li>
     </ul>

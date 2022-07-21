@@ -17,7 +17,6 @@ export class CheckboxComponent implements OnInit {
   shadeColor = shadeColor;
 
   constructor() {
-    console.log(this.status)
   }
 
   ngOnInit(): void {

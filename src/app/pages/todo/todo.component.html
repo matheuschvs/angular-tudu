@@ -1,0 +1,78 @@
+<div class="custom-container" [ngStyle]="{background: shadeColor(todo?.category?.color || '#FFFFFF', 300)}">
+  <header>
+    <button (click)="goBack()">
+      <fa-icon [icon]="leftArrowIcon" [styles]="{'width': '22px', 'height': '22px', 'color': 'var(--gray-900)'}">
+      </fa-icon>
+    </button>
+    <button>
+      <fa-icon [icon]="dotsIcon" [styles]="{'width': '22px', 'height': '22px', 'color': 'var(--gray-900)'}">
+      </fa-icon>
+    </button>
+  </header>
+  <h1 [ngStyle]="{color: shadeColor(todo?.category?.color || '#000000', 10)}">{{todo?.title}}</h1>
+  <h3>{{todo?.description}}</h3>
+  <section class="info">
+    <fa-icon [icon]="calendarIcon"
+      [styles]="{'margin-right': '1rem', 'width': '20px', 'height': '20px', 'color': 'var(--gray-900)'}">
+    </fa-icon>
+    <time>{{todo?.deadline | customDate}}</time>
+  </section>
+  <section class="info">
+    <fa-icon [icon]="tagIcon"
+      [styles]="{'margin-right': '1rem', 'width': '20px', 'height': '20px', 'color': 'var(--gray-900)', 'transform': 'rotate(90deg)'}">
+    </fa-icon>
+    <button [ngStyle]="{background: shadeColor(todo?.category?.color || '#CCCCCC', 10)}">
+      {{todo?.category?.title}}
+    </button>
+  </section>
+  <ul class="users">
+    <li *ngFor="let member of todo?.members">
+      {{member.name[0]}}
+    </li>
+    <button>
+      <fa-icon [icon]="plusIcon"></fa-icon>
+    </button>
+  </ul>
+  <section class="info files">
+    <fa-icon [icon]="clipIcon" [styles]="{'width': '20px', 'height': '20px', 'transform': 'rotate(6deg)'}">
+    </fa-icon>
+    <p>Anexos</p>
+  </section>
+  <ul class="files-list">
+    <li *ngFor="let file of todo?.files">
+      {{file.file.split('-')['']}}
+    </li>
+  </ul>
+  <hr class="hr">
+  <ul class="tasks">
+    <li *ngFor="let task of todo?.tasks">
+      <tudu-checkbox (userClicked)="handleToggleTaskStatus(todo?._id?.$oid || '', task._id.$oid, task.status)"
+        borderColor="var(--gray-900)" bgColor="{{shadeColor(todo?.category?.color || '#FFFFFF', 300)}}"
+        status="{{task.status}}">
+      </tudu-checkbox>
+      <span [ngClass]="{'done': task.status === 'DONE'}">{{task.title}}</span>
+    </li>
+    <li>
+      <fa-icon [icon]="rightArrowIcon" [styles]="{'width': '24px', 'height': '24px'}">
+      </fa-icon>
+      <button>Adicionar sub-tarefas</button>
+    </li>
+  </ul>
+  <hr class="hr">
+  <section class="comments">
+    <input [(ngModel)]="comment">
+    <button type="button" (click)="onSubmitComment(todo?._id?.$oid || '', this.comment)">
+      <fa-icon [icon]="paperPlaneIcon" [styles]="{'color': 'var(--blue-800)'}">
+      </fa-icon>
+    </button>
+    <ul>
+      <li *ngFor="let comment of todo?.comments">
+        <div>{{comment.user[0]}}</div>
+        <article>
+          <strong>{{comment.user}}</strong>
+          <p>{{comment.comment}}</p>
+        </article>
+      </li>
+    </ul>
+  </section>
+</div>
