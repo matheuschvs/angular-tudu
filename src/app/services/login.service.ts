@@ -4,6 +4,7 @@ import { Observable, tap } from "rxjs";
 
 import { TUDU_API } from '../app.api';
 import { User } from "../models/user.model";
+import { Category } from "../models/category.model";
 
 interface IResponse {
   user: User;

@@ -1,0 +1,77 @@
+<header class="header">
+  <h1>Criar tarefa</h1>
+</header>
+<div class="container">
+  <span class="trace"></span>
+  <form class="data" #form="ngForm" novalidate (ngSubmit)="handleCreateTodo(form)">
+    <input required class="form-control" ngModel name="title" id="title" placeholder="Digite o título">
+    <input class="form-control" ngModel name="description" id="description"
+      placeholder="Adicione uma descrição (opcional)">
+    <div class="input-group">
+      <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+        <fa-icon [icon]="calendarIcon" [styles]="{'width': '20px', 'height': '20px', 'margin-right': '1rem'}"></fa-icon>
+      </button>
+      <input class="form-control" ngModel [(ngModel)]="model" name="deadline" id="deadline"
+        placeholder="Inserir prazo - formato AAAA-MM-DD" ngbDatepicker #d="ngbDatepicker">
+    </div>
+    <fa-icon [icon]="tagIcon"
+      [styles]="{'vertical-align': 'middle', 'margin-right': '1rem', 'width': '20px', 'height': '20px', 'color': 'var(--gray-900)', 'transform': 'rotate(90deg)'}">
+    </fa-icon>
+    <select class="form-select form-control" ngModel name="category" aria-label="Default select example">
+      <option value="" selected disabled hidden>Inserir categoria</option>
+      <option *ngFor="let category of categories" value="{{category._id.$oid}}">
+        {{category.title}}
+      </option>
+    </select>
+    <button (click)="handleToggleNewCategory()" class="btn btn-transparent" type="button">
+      <fa-icon [icon]="plusIcon" *ngIf="!isNewCategoryShown"
+        [styles]="{'width': '20px', 'height': '20px', 'color': 'var(--gray-800)', 'vertical-align': 'sub'}">
+      </fa-icon>
+      <fa-icon [icon]="minusIcon" *ngIf="isNewCategoryShown"
+        [styles]="{'width': '20px', 'height': '20px', 'color': 'var(--gray-800)', 'vertical-align': 'sub'}">
+      </fa-icon>
+    </button>
+    <div class="new-category" *ngIf="isNewCategoryShown">
+      <input [(colorPicker)]="color" [style.background]="color" />
+      <input [(ngModel)]="newCategory" [ngModelOptions]="{standalone: true}" placeholder="Título da categoria">
+      <button class="btn btn-transparent" type="button" (click)="handleAddCategory()">
+        <fa-icon [icon]="chevronRightIcon"
+          [styles]="{'vertical-align': 'top', 'width': '22px', 'height': '22px', 'color': 'var(--gray-900)'}">
+        </fa-icon>
+      </button>
+    </div>
+    <br />
+    <fa-icon [icon]="usersIcon"
+      [styles]="{'vertical-align': 'middle', 'margin-right': '1rem', 'width': '22px', 'height': '22px', 'color': 'var(--gray-900)'}">
+    </fa-icon>
+    <input class="member-input" [(ngModel)]="member" [ngModelOptions]="{standalone: true}"
+      placeholder="Adicionar membros - E-mail">
+    <button class="btn btn-transparent" type="button" (click)="handleAddMember()">
+      <fa-icon [icon]="chevronRightIcon"
+        [styles]="{'vertical-align': 'top', 'width': '22px', 'height': '22px', 'color': 'var(--gray-900)'}">
+      </fa-icon>
+    </button>
+    <br />
+    <fa-icon [icon]="clipIcon"
+      [styles]="{'vertical-align': 'middle', 'margin-right': '1rem', 'width': '20px', 'height': '20px', 'color': 'var(--gray-900)', 'transform': 'rotate(6deg)'}">
+    </fa-icon>
+    <p class="file-text">Inserir anexos</p>
+    <br />
+    <hr class="hr" />
+    <section class="tasks">
+      <div class="task" *ngFor="let task of tasks">
+        <span></span>
+        <p>{{task}}</p>
+      </div>
+      <div class="task task-form">
+        <span></span>
+        <input [(ngModel)]="task" [ngModelOptions]="{standalone: true}" placeholder="Adicione um título">
+      </div>
+      <fa-icon [icon]="rightArrowIcon"
+        [styles]="{'vertical-align': 'middle', 'margin-right': '1rem', 'width': '20px', 'height': '20px', 'color': 'var(--gray-900)'}">
+      </fa-icon>
+      <button (click)="handleAddTask()" type="button" class="btn btn-transparent">Adicionar sub-tarefa</button>
+    </section>
+    <button class="submit-button" type="submit">Criar</button>
+  </form>
+</div>

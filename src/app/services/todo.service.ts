@@ -8,6 +8,14 @@ import { LoginService } from "./login.service";
 import { User } from "../models/user.model";
 import { Task } from "../models/task.model";
 import { Comment } from "../models/comment.model";
+import { Category } from "../models/category.model";
+
+interface ICreateTodoRequest {
+  title: string;
+  description: string;
+  deadline: string;
+  category: string;
+}
 
 @Injectable()
 export class TodoService {
@@ -22,8 +30,30 @@ export class TodoService {
     }
   }
 
+  addTodo({ title, category, deadline, description }: ICreateTodoRequest): Observable<Todo> {
+    return this.http.post<Todo>(`${TUDU_API}/todos`, {
+      todo: { title, category, deadline, description }
+    }, { headers: this.headers })
+  }
+
+  addMember(todo_id: string, member_id: string): Observable<Todo> {
+    return this.http.post<Todo>(`${TUDU_API}/todos/${todo_id}/members`, {
+      member_id
+    }, { headers: this.headers })
+  }
+
+  addTask(todo_id: string, title: string): Observable<Task> {
+    return this.http.post<Task>(`${TUDU_API}/todos/${todo_id}/tasks`, {
+      title
+    }, { headers: this.headers })
+  }
+
   fetchMember(id: string): Observable<User> {
     return this.http.get<User>(`${TUDU_API}/users/${id}`, { headers: this.headers })
+  }
+
+  fetchMemberByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`${TUDU_API}/users?email=${email}`, { headers: this.headers })
   }
 
   fetchTodo(id: string): Observable<Todo> {
@@ -51,6 +81,19 @@ export class TodoService {
   addComment(id: string, comment: string) {
     return this.http.post<Comment>(`${TUDU_API}/todos/${id}/comments`, {
       comment: { comment }
+    }, { headers: this.headers })
+  }
+
+  fetchCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${TUDU_API}/categories`, { headers: this.headers })
+  }
+
+  addCategory(title: string, color: string) {
+    return this.http.post<Category>(`${TUDU_API}/categories`, {
+      category: {
+        title,
+        color
+      }
     }, { headers: this.headers })
   }
 }

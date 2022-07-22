@@ -65,6 +65,13 @@ export class PlannerComponent implements OnInit {
             const currCategory = userCategories?.find(c => c._id.$oid === todo.category_id.$oid)
             if (currCategory) {
               todo.category = currCategory
+            } else {
+              this._todoService.fetchCategories().subscribe({
+                error: () => this._toastService.error('Categoria não encontrada'),
+                next: ctgr => {
+                  todo.category = ctgr.find(c => c._id.$oid === todo.category_id.$oid)
+                }
+              })
             }
           })
 
@@ -87,7 +94,7 @@ export class PlannerComponent implements OnInit {
             return {
               start: new Date(todo.deadline),
               title: todo.title,
-              color: { primary: todo.category.color, secondary: todo.category.color }
+              color: { primary: todo.category?.color, secondary: todo.category?.color }
             }
           })
 

@@ -16,8 +16,8 @@ import {
 } from 'angular-calendar';
 import dayjs from 'dayjs';
 import { DemoUtilsModule } from './demo-utils/module';
-// import { DemoComponent } from './component';
 import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +36,7 @@ import { TodoService } from './services/todo.service';
 import { CustomDatePipe } from './utils/datePipe';
 import { PlannerComponent } from './pages/planner/planner.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { CreateTodoComponent } from './pages/create-todo/create-todo.component';
 
 registerLocaleData(localePt);
 
@@ -57,7 +58,8 @@ export function dayjsAdapterFactory() {
     TodoComponent,
     CustomDatePipe,
     PlannerComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreateTodoComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ export function dayjsAdapterFactory() {
         },
       }
     ),
-    DemoUtilsModule
+    DemoUtilsModule,
+    ColorPickerModule
   ],
   providers: [
     LoginService,

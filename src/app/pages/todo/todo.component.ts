@@ -53,6 +53,13 @@ export class TodoComponent implements OnInit {
           const currCategory = userCategories?.find(c => c._id.$oid === data.category_id.$oid)
           if (currCategory) {
             data.category = currCategory
+          } else {
+            this.todoService.fetchCategories().subscribe({
+              error: () => this._toastService.error('Categoria não encontrada'),
+              next: ctgr => {
+                data.category = ctgr.find(c => c._id.$oid === data.category_id.$oid)
+              }
+            })
           }
 
           data.members = []

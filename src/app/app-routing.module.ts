@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { TodoComponent } from './pages/todo/todo.component';
 import { PlannerComponent } from './pages/planner/planner.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { CreateTodoComponent } from './pages/create-todo/create-todo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'todos/:id', component: TodoComponent },
       { path: 'planner', component: PlannerComponent },
       { path: 'profile', component: ProfileComponent },
+      { path: 'create-todo', component: CreateTodoComponent }
     ]
   },
 ];
