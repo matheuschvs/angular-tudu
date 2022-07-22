@@ -4,7 +4,7 @@
       <fa-icon [icon]="leftArrowIcon" [styles]="{'width': '22px', 'height': '22px', 'color': 'var(--gray-900)'}">
       </fa-icon>
     </button>
-    <button>
+    <button (click)="open(content)">
       <fa-icon [icon]="dotsIcon" [styles]="{'width': '22px', 'height': '22px', 'color': 'var(--gray-900)'}">
       </fa-icon>
     </button>
@@ -45,12 +45,18 @@
   </ul>
   <hr class="hr">
   <ul class="tasks">
-    <li *ngFor="let task of todo?.tasks">
-      <tudu-checkbox (userClicked)="handleToggleTaskStatus(todo?._id?.$oid || '', task._id.$oid, task.status)"
-        borderColor="var(--gray-900)" bgColor="{{shadeColor(todo?.category?.color || '#FFFFFF', 300)}}"
-        status="{{task.status}}">
-      </tudu-checkbox>
-      <span [ngClass]="{'done': task.status === 'DONE'}">{{task.title}}</span>
+    <li class="d-flex justify-content-between" *ngFor="let task of todo?.tasks">
+      <div>
+        <tudu-checkbox (userClicked)="handleToggleTaskStatus(todo?._id?.$oid || '', task._id.$oid, task.status)"
+          borderColor="var(--gray-900)" bgColor="{{shadeColor(todo?.category?.color || '#FFFFFF', 300)}}"
+          status="{{task.status}}">
+        </tudu-checkbox>
+        <span [ngClass]="{'done': task.status === 'DONE'}">{{task.title}}</span>
+      </div>
+      <button (click)="handleDeleteTask(task._id.$oid)" class="btn btn-transparent">
+        <fa-icon [icon]="trashIcon" [styles]="{'color': 'var(--gray-800)','width': '12px', 'height': '12px'}">
+        </fa-icon>
+      </button>
     </li>
     <li>
       <div class="task task-form">
@@ -82,3 +88,19 @@
     </ul>
   </section>
 </div>
+
+<ng-template #content let-offcanvas>
+  <header class="offcanvas-header">
+    <h4 class="offcanvas-title" id="offcanvas-basic-title">Opções</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+  </header>
+  <div class="offcanvas-body">
+    <div class="text-center">
+      <fa-icon [icon]="trashIcon" [styles]="{'color': 'firebrick','width': '12px', 'height': '12px'}">
+      </fa-icon>
+      <button type="button" class="btn text-danger" (click)="handleDeleteTodo()">
+        Excluir tarefa
+      </button>
+    </div>
+  </div>
+</ng-template>

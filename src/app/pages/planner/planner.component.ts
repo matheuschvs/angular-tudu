@@ -81,8 +81,16 @@ export class PlannerComponent implements OnInit {
 
           this.todos = data;
 
-          this.todosAfter = this.todos?.filter(todo => dayjs(todo.deadline)
+          this.todosAfter = this.todos?.map(todo => {
+            todo.deadline = dayjs(todo.deadline)
+              .add(5, 'hour')
+              .toString()
+            return todo
+          }).filter(todo => dayjs(todo.deadline)
             .isSameOrAfter(dayjs(), 'day'))
+            .sort((a, b) => {
+              return dayjs(a.deadline).isSameOrAfter(b.deadline) ? 1 : -1
+            })
           this.todoDays = this.todosAfter
             .map(todo => new Date(todo.deadline))
           this.groupByDay = this.todosAfter.reduce((acc, todo) => {

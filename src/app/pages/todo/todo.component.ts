@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastService } from 'angular-toastify';
-import { faArrowLeft, faEllipsis, faTag, faPlus, faPaperclip, faArrowRight, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faEllipsis, faTag, faPlus, faPaperclip, faArrowRight, faPaperPlane, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
+import { NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
+
 
 import { ObjectId } from 'src/app/models/object-id.model';
 import { Todo } from 'src/app/models/todo.model';
@@ -25,6 +27,7 @@ export class TodoComponent implements OnInit {
   clipIcon = faPaperclip;
   rightArrowIcon = faArrowRight;
   paperPlaneIcon = faPaperPlane;
+  trashIcon = faTrash;
   shadeColor = shadeColor;
   comment: string = '';
   todo: Todo;
@@ -35,7 +38,9 @@ export class TodoComponent implements OnInit {
     private todoService: TodoService,
     private _toastService: ToastService,
     private loginService: LoginService,
-    private _location: Location
+    private _location: Location,
+    private offcanvasService: NgbOffcanvas,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +90,31 @@ export class TodoComponent implements OnInit {
   handleAddTask() {
     this.todoService.addTask(this.todo._id.$oid, this.task).subscribe({
       error: () => this._toastService.error('Não foi possível adicionar uma das sub-tarefas'),
-      next: data => this.todo.tasks.push(data)
+      next: data => {
+        if (!this.todo.tasks) {
+          this.todo.tasks = []
+        }
+        this.todo.tasks.push(data)
+      }
+    })
+  }
+
+  handleDeleteTask(task_id: string) {
+    this.todoService.deleteTask(this.todo._id.$oid, task_id).subscribe({
+      error: () => this._toastService.error('Não foi possível remover a sub-tarefa'),
+      next: () => {
+        this.updateTodo()
+      }
+    })
+  }
+
+  handleDeleteTodo() {
+    this.todoService.deleteTodo(this.todo._id.$oid).subscribe({
+      error: () => this._toastService.error('Não foi possível remover a tarefa'),
+      next: () => {
+        this._toastService.success('Tarefa removida com sucesso')
+        this._router.navigate(['/home'])
+      }
     })
   }
 
@@ -104,5 +133,9 @@ export class TodoComponent implements OnInit {
         this.updateTodo()
       }
     })
+  }
+
+  open(content: any) {
+    this.offcanvasService.open(content, { ariaLabelledBy: 'offcanvas-basic-title' });
   }
 }

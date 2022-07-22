@@ -48,6 +48,16 @@ export class TodoService {
     }, { headers: this.headers })
   }
 
+  deleteTask(todo_id: string, task_id: string): Observable<null> {
+    return this.http.delete<null>(`${TUDU_API}/todos/${todo_id}/tasks/${task_id}`,
+      { headers: this.headers })
+  }
+
+  deleteTodo(todo_id: string): Observable<null> {
+    return this.http.delete<null>(`${TUDU_API}/todos/${todo_id}`,
+      { headers: this.headers })
+  }
+
   fetchMember(id: string): Observable<User> {
     return this.http.get<User>(`${TUDU_API}/users/${id}`, { headers: this.headers })
   }
