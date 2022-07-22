@@ -35,6 +35,7 @@ import { TodoComponent } from './pages/todo/todo.component';
 import { TodoService } from './services/todo.service';
 import { CustomDatePipe } from './utils/datePipe';
 import { PlannerComponent } from './pages/planner/planner.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 registerLocaleData(localePt);
 
@@ -55,7 +56,8 @@ export function dayjsAdapterFactory() {
     CheckboxComponent,
     TodoComponent,
     CustomDatePipe,
-    PlannerComponent
+    PlannerComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

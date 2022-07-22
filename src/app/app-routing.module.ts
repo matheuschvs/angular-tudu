@@ -8,6 +8,7 @@ import { LayoutComponent } from './layouts/layout/layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TodoComponent } from './pages/todo/todo.component';
 import { PlannerComponent } from './pages/planner/planner.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'todos/:id', component: TodoComponent },
       { path: 'planner', component: PlannerComponent },
+      { path: 'profile', component: ProfileComponent },
     ]
   },
 ];

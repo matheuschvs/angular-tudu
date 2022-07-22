@@ -1,0 +1,13 @@
+<div class="custom-container">
+  <header>
+    <div>
+      <fa-icon [icon]="userIcon" [styles]="{'width': '5rem', 'height': '5rem'}"></fa-icon>
+    </div>
+    <h1>{{user?.name}}</h1>
+    <h1>{{user?.email}}</h1>
+  </header>
+  <button (click)="handleLogout()">
+    <fa-icon [icon]="powerIcon" [styles]="{'color': 'red', 'width': '1rem', 'height': '1rem'}"></fa-icon>
+    deslogar
+  </button>
+</div>

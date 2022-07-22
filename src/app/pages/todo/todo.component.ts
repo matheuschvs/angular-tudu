@@ -49,7 +49,6 @@ export class TodoComponent implements OnInit {
       .subscribe({
         error: () => this._toastService.error('Não foi possível encontrar o todo'),
         next: (data: any) => {
-          console.log(data)
           const userCategories = this.loginService.user.categories
           const currCategory = userCategories?.find(c => c._id.$oid === data.category_id.$oid)
           if (currCategory) {
@@ -67,7 +66,6 @@ export class TodoComponent implements OnInit {
           })
 
           this.todo = data;
-          console.log(this.todo)
         }
       })
   }

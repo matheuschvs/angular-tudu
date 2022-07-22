@@ -46,24 +46,7 @@ export class PlannerComponent implements OnInit {
   shadeColor = shadeColor;
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
-  events: CalendarEvent[] = [
-    {
-      start: new Date(),
-      title: 'A 3 day event',
-      color: colors.red,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: new Date(),
-      title: 'An event with no end date',
-      color: colors.yellow,
-    },
-  ];
+  events: CalendarEvent[] = [];
 
   constructor(
     private _todoService: TodoService,
@@ -107,8 +90,6 @@ export class PlannerComponent implements OnInit {
               color: { primary: todo.category.color, secondary: todo.category.color }
             }
           })
-
-          console.log(this.events)
 
           this.changeDetector.detectChanges();
         }
