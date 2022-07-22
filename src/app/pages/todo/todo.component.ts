@@ -28,6 +28,7 @@ export class TodoComponent implements OnInit {
   shadeColor = shadeColor;
   comment: string = '';
   todo: Todo;
+  task: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -79,6 +80,13 @@ export class TodoComponent implements OnInit {
 
   goBack() {
     this._location.back();
+  }
+
+  handleAddTask() {
+    this.todoService.addTask(this.todo._id.$oid, this.task).subscribe({
+      error: () => this._toastService.error('Não foi possível adicionar uma das sub-tarefas'),
+      next: data => this.todo.tasks.push(data)
+    })
   }
 
   handleToggleTaskStatus(todo_id: string, task_id: string, status: string) {

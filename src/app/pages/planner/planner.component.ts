@@ -69,7 +69,11 @@ export class PlannerComponent implements OnInit {
               this._todoService.fetchCategories().subscribe({
                 error: () => this._toastService.error('Categoria não encontrada'),
                 next: ctgr => {
-                  todo.category = ctgr.find(c => c._id.$oid === todo.category_id.$oid)
+                  todo.category = ctgr.find(c => {
+                    return c._id.$oid === todo.category_id.$oid
+                  })
+
+                  this.changeDetector.detectChanges();
                 }
               })
             }
@@ -77,7 +81,7 @@ export class PlannerComponent implements OnInit {
 
           this.todos = data;
 
-          this.todosAfter = data?.filter(todo => dayjs(todo.deadline)
+          this.todosAfter = this.todos?.filter(todo => dayjs(todo.deadline)
             .isSameOrAfter(dayjs(), 'day'))
           this.todoDays = this.todosAfter
             .map(todo => new Date(todo.deadline))

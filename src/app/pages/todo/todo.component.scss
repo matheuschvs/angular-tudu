@@ -129,6 +129,49 @@
   }
 }
 
+.task {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 1rem;
+
+  input {
+    border: none;
+    background: transparent;
+    padding: 0.3rem 0.5rem 0.3rem 0;
+    color: var(--gray-900);
+    font-size: 1rem;
+    outline: none;
+    border-bottom: 2px solid transparent;
+    width: 11rem;
+    box-shadow: none;
+    border-radius: 0;
+
+    &:focus {
+      border-color: var(--gray-800);
+    }
+
+    &::placeholder {
+      color: var(--gray-900);
+    }
+  }
+
+  span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    margin-right: 1rem;
+    border: 1px solid var(--gray-900);
+    background: transparent;
+  }
+
+  input {
+    margin-bottom: 0;
+    background: transparent;
+  }
+}
+
 .comments {
   margin-top: 1rem;
   position: relative;

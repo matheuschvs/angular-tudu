@@ -53,9 +53,15 @@
       <span [ngClass]="{'done': task.status === 'DONE'}">{{task.title}}</span>
     </li>
     <li>
+      <div class="task task-form">
+        <span></span>
+        <input [(ngModel)]="task" [ngModelOptions]="{standalone: true}" placeholder="Nova sub-tarefa">
+      </div>
+    </li>
+    <li>
       <fa-icon [icon]="rightArrowIcon" [styles]="{'width': '24px', 'height': '24px'}">
       </fa-icon>
-      <button>Adicionar sub-tarefas</button>
+      <button (click)="handleAddTask()" type="button">Adicionar sub-tarefa</button>
     </li>
   </ul>
   <hr class="hr">

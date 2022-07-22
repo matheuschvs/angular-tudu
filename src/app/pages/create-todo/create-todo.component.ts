@@ -6,6 +6,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from 'angular-toastify';
 import { Category } from 'src/app/models/category.model';
 import { Todo } from 'src/app/models/todo.model';
+import { LoginService } from 'src/app/services/login.service';
 import { TodoService } from 'src/app/services/todo.service';
 
 @Component({
@@ -35,12 +36,16 @@ export class CreateTodoComponent implements OnInit {
   constructor(
     private _todoService: TodoService,
     private _toastService: ToastService,
+    private _loginService: LoginService,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
     this._todoService.fetchCategories().subscribe({
-      next: data => this.categories = data,
+      next: data => {
+        this._loginService.user.categories = data;
+        this.categories = data;
+      },
       error: () => this._toastService.error('Não foi possível carregar as categorias')
     })
   }

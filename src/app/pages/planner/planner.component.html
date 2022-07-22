@@ -24,7 +24,7 @@
         <li class="todo" *ngFor="let todo of groupByDay[date]"
           [ngStyle]="{background: shadeColor(todo?.category?.color || '#FF0000', 10)}">
           <a [routerLink]=" ['/todos/'+todo._id.$oid]">
-            <h3>{{todo.title}}</h3>
+            <h3>{{todo?.title}}</h3>
           </a>
           <p [ngStyle]="{color: shadeColor(todo?.category?.color || '#FF0000', -40)}">{{todo.description}}</p>
         </li>

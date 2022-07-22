@@ -38,6 +38,15 @@ export class HomeComponent implements OnInit {
             const currCategory = userCategories?.find(c => c._id.$oid === todo.category_id.$oid)
             if (currCategory) {
               todo.category = currCategory
+            } else {
+              this.todoService.fetchCategories().subscribe({
+                error: () => this._toastService.error('Categoria não encontrada'),
+                next: ctgr => {
+                  todo.category = ctgr.find(c => {
+                    return c._id.$oid === todo.category_id.$oid
+                  })
+                }
+              })
             }
           })
 
