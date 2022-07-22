@@ -7,6 +7,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import {
+  CalendarDateFormatter,
+  CalendarModule,
+  CalendarMomentDateFormatter,
+  DateAdapter,
+  MOMENT,
+} from 'angular-calendar';
+import dayjs from 'dayjs';
+import { DemoUtilsModule } from './demo-utils/module';
+// import { DemoComponent } from './component';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +37,10 @@ import { CustomDatePipe } from './utils/datePipe';
 import { PlannerComponent } from './pages/planner/planner.component';
 
 registerLocaleData(localePt);
+
+export function dayjsAdapterFactory() {
+  return adapterFactory(dayjs);
+}
 
 @NgModule({
   declarations: [
@@ -49,13 +64,30 @@ registerLocaleData(localePt);
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    AngularToastifyModule
+    AngularToastifyModule,
+    CalendarModule.forRoot(
+      {
+        provide: DateAdapter,
+        useFactory: dayjsAdapterFactory,
+      },
+      {
+        dateFormatter: {
+          provide: CalendarDateFormatter,
+          useClass: CalendarMomentDateFormatter,
+        },
+      }
+    ),
+    DemoUtilsModule
   ],
   providers: [
     LoginService,
     ToastService,
     TodoService,
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {
+      provide: MOMENT,
+      useValue: dayjs,
+    },
   ],
   bootstrap: [AppComponent]
 })

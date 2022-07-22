@@ -1,23 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ToastService } from 'angular-toastify';
 import dayjs from 'dayjs';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import { ChangeDetectionStrategy } from '@angular/core';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
+import br from 'dayjs/locale/pt-br'
 
 import { Todo } from 'src/app/models/todo.model';
 import { LoginService } from 'src/app/services/login.service';
 import { TodoService } from 'src/app/services/todo.service';
 import { shadeColor } from 'src/app/utils/shadeColor';
+import { colors } from 'src/app/demo-utils/colors';
 
 interface IGroupedByDay {
   [key: string]: Todo[]
 }
 
+dayjs.locale({ ...br })
 dayjs.extend(isSameOrAfter)
 
 @Component({
   selector: 'tudu-planner',
   templateUrl: './planner.component.html',
-  styleUrls: ['./planner.component.scss']
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: [
+    './planner.component.scss'
+  ]
 })
 export class PlannerComponent implements OnInit {
   todos: Todo[]
@@ -36,11 +44,32 @@ export class PlannerComponent implements OnInit {
   groupByDayKeys: string[]
   dayjs = dayjs
   shadeColor = shadeColor;
+  view: CalendarView = CalendarView.Month;
+  viewDate: Date = new Date();
+  events: CalendarEvent[] = [
+    {
+      start: new Date(),
+      title: 'A 3 day event',
+      color: colors.red,
+      allDay: true,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true,
+      },
+      draggable: true,
+    },
+    {
+      start: new Date(),
+      title: 'An event with no end date',
+      color: colors.yellow,
+    },
+  ];
 
   constructor(
     private _todoService: TodoService,
     private _toastService: ToastService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +99,18 @@ export class PlannerComponent implements OnInit {
             return acc
           }, {} as IGroupedByDay)
           this.groupByDayKeys = Object.keys(this.groupByDay)
+
+          this.events = this.todosAfter.map(todo => {
+            return {
+              start: new Date(todo.deadline),
+              title: todo.title,
+              color: { primary: todo.category.color, secondary: todo.category.color }
+            }
+          })
+
+          console.log(this.events)
+
+          this.changeDetector.detectChanges();
         }
       })
   }
