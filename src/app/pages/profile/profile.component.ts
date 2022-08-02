@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   }
 
   handleLogout() {
-    localStorage.clear()
+    this._loginService.logout()
     this._router.navigate(['/'])
   }
 }

@@ -14,7 +14,7 @@ interface IResponse {
 @Injectable()
 export class LoginService {
   user: User = JSON.parse(localStorage.getItem('@tudu:user') || '{}');
-  token: string | null = localStorage.getItem('@tudu:token');
+  token: string = localStorage.getItem('@tudu:token') || '';
 
   isLoggedIn(): boolean {
     return !!this.user
@@ -32,5 +32,11 @@ export class LoginService {
       this.token = result.token;
       this.user = result.user
     }))
+  }
+
+  logout() {
+    localStorage.clear()
+    this.user = {} as User;
+    this.token = '';
   }
 }
